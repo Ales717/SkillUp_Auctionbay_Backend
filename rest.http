@@ -51,15 +51,20 @@ GET http://localhost:8080/users?page=1 HTTP/1.1
 ### GET /items
 GET http://localhost:8080/items HTTP/1.1
 
+### GET /items/user/:user_id
+GET http://localhost:8080/items/user/d0def017-6c5d-4d00-8abd-2875956c520c HTTP/1.1
+
+
 ### POST /items
 POST http://localhost:8080/items HTTP/1.1
 Content-Type: application/json
 
 {
-  	"title": "PC",
-    "description": "zelo dober pc",
-	"starting_price": 20,
-	"end_date": "2025-04-05 07:43:12.760868"
+  	"title": "avto",
+    "description": "hiter avto",
+	"starting_price": 300,
+	"end_date": "2024-07-08 07:43:12.760868",
+	"user_id": "d0def017-6c5d-4d00-8abd-2875956c520c"
 }
 ### PATCH /items/:id
 PATCH http://localhost:8080/items/4a4067cd-03a5-461f-8cda-db2fc689a406 HTTP/1.1

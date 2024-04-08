@@ -17,6 +17,6 @@ export class CreateUpdateItemDto {
     @IsOptional()
     image?: string
 
-    /* @IsNotEmpty()
-    user_id: string */
+    @IsNotEmpty()
+    user_id: string
 }

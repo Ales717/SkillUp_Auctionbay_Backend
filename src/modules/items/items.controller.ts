@@ -23,6 +23,18 @@ export class ItemsController {
         return this.itemsService.findById(id)
     }
 
+    @Get('user/:user_id')
+    @HttpCode(HttpStatus.OK)
+    async findByUserId(@Param('user_id') user_id: string): Promise<Item[]> {
+        const condition = { user: { id: user_id } }
+        return this.itemsService.findBy(condition);
+    }
+    /*     @Get('user/:user_id')
+        @HttpCode(HttpStatus.OK)
+        async findByUserId(@Param('user_id') user_id: string): Promise<Item[]> {
+            return this.itemsService.findByUserId(user_id);
+        } */
+
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async create(@Body() createItemDto: CreateUpdateItemDto): Promise<Item> {

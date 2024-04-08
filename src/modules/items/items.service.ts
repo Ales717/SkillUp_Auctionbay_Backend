@@ -14,7 +14,7 @@ export class ItemsService extends AbstractService {
 
     async create(createItemDto: CreateUpdateItemDto): Promise<Item> {
         try {
-            const item = this.itemRepository.create({ ...createItemDto })
+            const item = this.itemRepository.create({ ...createItemDto, user: { id: createItemDto.user_id } })
             return this.itemRepository.save(item)
         } catch (error) {
             Logging.error(error)
@@ -24,12 +24,14 @@ export class ItemsService extends AbstractService {
 
     async update(itemId: string, updateItemDto: CreateUpdateItemDto): Promise<Item> {
         const item = (await this.findById(itemId)) as Item
+        const { title, description, starting_price, end_date, image, user_id, ...data } = updateItemDto
         try {
-            item.title = updateItemDto.title
-            item.description = updateItemDto.description
-            item.starting_price = updateItemDto.starting_price
-            item.end_date = updateItemDto.end_date
-            item.image = updateItemDto.image
+            item.title = title
+            item.description = description
+            item.starting_price = starting_price
+            item.end_date = end_date
+            item.image = image
+            item.user = { ...item.user, id: user_id }
             return this.itemRepository.save(item)
         } catch (error) {
             Logging.error(error)
