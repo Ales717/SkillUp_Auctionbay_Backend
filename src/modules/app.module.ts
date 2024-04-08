@@ -5,6 +5,7 @@ import { DatabaseModule } from './database/database.module'
 import { LoggerMiddleware } from 'middleware/logger.middleware'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
+import { ItemsModule } from './items/items.module'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module'
     DatabaseModule,
     UsersModule,
     AuthModule,
+    ItemsModule,
   ],
   controllers: [],
   providers: [],
