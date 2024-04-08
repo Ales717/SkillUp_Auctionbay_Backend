@@ -1,7 +1,4 @@
-Certainly! Below is the entire README content in Markdown format:
-
-```markdown
-# AuctionBay Backend
+## AuctionBay Backend
 
 Welcome to the AuctionBay backend repository! This repository contains the backend codebase for the AuctionBay web application, built using NestJS.
 
