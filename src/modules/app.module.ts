@@ -6,6 +6,7 @@ import { LoggerMiddleware } from 'middleware/logger.middleware'
 import { UsersModule } from './users/users.module'
 import { AuthModule } from './auth/auth.module'
 import { ItemsModule } from './items/items.module'
+import { BidsModule } from './bids/bids.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ItemsModule } from './items/items.module'
     UsersModule,
     AuthModule,
     ItemsModule,
+    BidsModule,
   ],
   controllers: [],
   providers: [],

@@ -1,7 +1,7 @@
 ### GET /
 GET http://localhost:8080 HTTP/1.1
 
-### POST /auth/register
+### POST /auth/signup
 POST http://localhost:8080/auth/register HTTP/1.1
 Content-Type: application/json
 
@@ -75,5 +75,33 @@ Content-Type: application/json
 }
 ### DELETE /item
 DELETE http://localhost:8080/items/4fbdb370-390a-4bac-b0cd-9ec89c25bc00 HTTP/1.1
+
+
+### GET /bids
+GET http://localhost:8080/bids HTTP/1.1
+
+### GET /bids/user/:user_id
+GET http://localhost:8080/bids/user/d0def017-6c5d-4d00-8abd-2875956c520c HTTP/1.1
+
+
+### POST /bids
+POST http://localhost:8080/bids HTTP/1.1
+Content-Type: application/json
+
+{
+  	"amount": 300,
+	"date": "2024-07-08 07:43:12.760868",
+	"user_id": "d0def017-6c5d-4d00-8abd-2875956c520c",
+	"item_id": "5aa19a4c-a63c-4465-8ab4-a283a3ce978a"
+}
+### PATCH /bids/:id
+PATCH http://localhost:8080/bids/0e580d0a-7758-4ccd-87c3-3997da07a176 HTTP/1.1
+Content-Type: application/json
+
+{
+  	"amount": 259
+}
+### DELETE /bids
+DELETE http://localhost:8080/bids/0e580d0a-7758-4ccd-87c3-3997da07a176 HTTP/1.1
 
 

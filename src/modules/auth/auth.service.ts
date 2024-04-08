@@ -24,7 +24,7 @@ export class AuthService {
         return user
     }
 
-    async register(registerUserDto: RegisterUserDto): Promise<User> {
+    async signup(registerUserDto: RegisterUserDto): Promise<User> {
         const hashedPassword: string = await hash(registerUserDto.password)
         const user = await this.usersService.create({
             ...registerUserDto,

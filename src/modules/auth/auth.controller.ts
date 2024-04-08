@@ -13,10 +13,10 @@ export class AuthController {
     constructor(private authService: AuthService) { }
 
     @Public()
-    @Post('register')
+    @Post('signup')
     @HttpCode(HttpStatus.CREATED)
-    async register(@Body() body: RegisterUserDto): Promise<User> {
-        return this.authService.register(body)
+    async signup(@Body() body: RegisterUserDto): Promise<User> {
+        return this.authService.signup(body)
     }
 
     @Public()
