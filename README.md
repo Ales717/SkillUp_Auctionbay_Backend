@@ -1,116 +1,70 @@
-# Tutorial
+## AuctionBay Backend
 
----
+Welcome to the AuctionBay backend repository! This repository contains the backend codebase for the AuctionBay web application, built using NestJS.
 
-### Table of Contents
+## Table of Contents
 
 - [Description](#description)
-- [Available Scripts](#available-scripts)
-- [Learn More](#learn-more)
-- [Support](#support)
-- [References](#references)
-- [Author Info](#author-info)
-
----
+- [Features](#features)
+- [Setup](#setup)
+- [Usage](#usage)
 
 ## Description
 
-If you want to have a different font, go to: [google fonts](https://fonts.google.com/) and download desired font.
+AuctionBay is a full-stack auction web application that enables users to create and manage events for auctions. Registered users can create auction events by providing images, event titles, descriptions, starting prices, and auction durations. Bidders can participate in auctions, place bids, and view the status of their bids. Bids are incrementally increased until reaching the user's specified maximum bid. The highest bid at the end of the auction period wins the item. Sellers can manage their auction events and view bidding histories.
 
-**In this tutorial you will learn how to use:**
-- react-bootstrap
-- react-hook-form with yup validation
-- CRUD functionality - Create Read Update Delete
-- file upload
-- connect ReactJS and NestJS
-- setup NestJS with custom logging
-- connect to PostgreSQL database using TypeORM
-- create dtos with validation
-- deploy ReactJS to AWS S3 Bucket
-- deploy NestJS to AWS ECS (Elastic Container Service)
+This backend repository provides RESTful APIs to support the functionalities mentioned above. It is built using NestJS, a progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
 
-#### Technologies
+## Features
 
-- [Typescript](https://www.typescriptlang.org/)
-- [ReactJS](https://reactjs.org/)
-- [NestJS](https://nestjs.com/)
-- [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
-- [react-hook-form](https://react-hook-form.com/)
-- [yup validation](https://react-hook-form.com/advanced-usage#CustomHookwithResolver)
-- [PostgreSQL](https://www.postgresql.org/)
-- [TypeORM](https://typeorm.io/)
-- [AWS](https://aws.amazon.com/)
+- User authentication and authorization
+- CRUD operations for auction events
+- Bidding functionality with automatic bid increment
+- Real-time updates for auction status
+- Seller dashboard to manage auctions and view bidding histories
+- User-friendly API endpoints with detailed documentation
 
-#### Tools
+## Setup
 
-- [Git](https://git-scm.com/)
-- [GitHub](https://github.com/)
-- [Trello](https://trello.com/)
+To set up the AuctionBay backend locally, follow these steps:
 
-[Back To The Top](#Tutorial)
+1. Clone this repository to your local machine:
 
----
+   ```bash
+   git clone https://github.com/your-username/auctionbay-backend.git
+   ```
 
-## Available Scripts
+2. Navigate into the project directory:
 
-In the project directory, you can run:
+   ```bash
+   cd auctionbay-backend
+   ```
 
-### Installation
+3. Install dependencies using npm or yarn:
 
-```bash
-$ npm install
-```
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-### Running the app
+4. Configure environment variables by creating a `.env` file based on the provided `.env.example`.
 
-```bash
-# development
-$ npm run start
+5. Set up your database connection and ensure it is running.
 
-# watch mode
-$ npm run start:dev
+6. Run the application in development mode:
 
-# production mode
-$ npm run start:prod
-```
+   ```bash
+   npm run start:dev
+   # or
+   yarn start:dev
+   ```
 
-### Test
+The backend server should now be running locally on `http://localhost:3000`.
 
-```bash
-# unit tests
-$ npm run test
+## Usage
 
-# e2e tests
-$ npm run test:e2e
+Once the backend server is running, you can start using the AuctionBay web application by integrating it with the frontend or testing the endpoints using tools like Postman.
 
-# test coverage
-$ npm run test:cov
-```
 
-### Prettier
-
-- `npm run code:format` - Format code.
-
-### eslint
-
-- `npm run lint:fix` - Fix some of the errors.
-
-Run both **prettier** and **eslint** with: `npm run format`
-
-[Back To The Top](#Tutorial)
-
----
-
-## References
-
-- Website - [@skillupmentor](https://skillupmentor.com/)
-- Github - [@skillupmentor](https://github.com/skillupmentor)
-
-[Back To The Top](#Tutorial)
-
-## Author Info
-
-- LinkedIn - [@nejcrogelsek](https://www.linkedin.com/in/nejcrogelsek/)
-- Github - [@nejcrogelsek](https://github.com/nejcrogelsek)
-
-[Back To The Top](#Tutorial)
+This Markdown file provides a comprehensive README for your AuctionBay backend project. You can adjust the content, URLs, or formatting as needed.
