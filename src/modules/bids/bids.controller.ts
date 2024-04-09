@@ -3,7 +3,9 @@ import { BidsService } from './bids.service';
 import { PeginatedResult } from 'interfaces/peginated-result.interface';
 import { Bid } from 'entities/bid.entity';
 import { CreateUpdateBidDto } from './dto/create-update-bid.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('bids')
 @Controller('bids')
 export class BidsController {
     constructor(private readonly bidsService: BidsService) { }

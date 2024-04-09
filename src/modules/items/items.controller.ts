@@ -6,7 +6,9 @@ import { CreateUpdateItemDto } from './dto/create-update-item.dto';
 import { isFileExtensionSafe, removeFile, saveImageToStorage } from 'helpers/imageStorage';
 import { FileInterceptor } from '@nestjs/platform-express'
 import { join } from 'path';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('items')
 @Controller('items')
 export class ItemsController {
     constructor(private readonly itemsService: ItemsService) { }

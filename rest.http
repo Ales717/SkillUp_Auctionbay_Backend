@@ -2,13 +2,13 @@
 GET http://localhost:8080 HTTP/1.1
 
 ### POST /auth/signup
-POST http://localhost:8080/auth/register HTTP/1.1
+POST http://localhost:8080/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-  	"email": "john@gmail.com",
-  	"password": "John123!",
-  	"confirm_password": "John123!"
+  	"email": "ales@gmail.com",
+  	"password": "Geslo123!",
+  	"confirm_password": "Geslo123!"
 }
 
 ### POST /auth/login
@@ -102,6 +102,6 @@ Content-Type: application/json
   	"amount": 259
 }
 ### DELETE /bids
-DELETE http://localhost:8080/bids/0e580d0a-7758-4ccd-87c3-3997da07a176 HTTP/1.1
+DELETE http://localhost:8080/bids/4fbdb370-390a-4bac-b0cd-9ec89c25bc00 HTTP/1.1
 
 
