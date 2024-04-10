@@ -54,7 +54,7 @@ export class UsersController {
         throw new BadRequestException('File content does not mathc extesion.')
     }
 
-    @Patch()
+    @Patch(':id')
     @HttpCode(HttpStatus.OK)
     async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
         return this.userService.update(id, updateUserDto)

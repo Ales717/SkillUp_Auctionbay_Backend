@@ -30,32 +30,36 @@ export class UsersService extends AbstractService {
     }
 
     async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-        const user = (await this.findById(id,)) as User
-        const { email, password, confirm_password, ...data } = updateUserDto
+        const user = await this.findById(id) as User;
+        const { email, password, confirm_password, ...data } = updateUserDto;
+
         if (user.email !== email && email) {
-            user.email = email
+            user.email = email;
         }
+
         if (password && confirm_password) {
             if (password !== confirm_password) {
-                throw new BadRequestException('Passwords do not match.')
+                throw new BadRequestException('Passwords do not match.');
             }
+
             if (await compareHash(password, user.password)) {
-                throw new BadRequestException('New password cannot be the same as your old password.')
+                throw new BadRequestException('New password cannot be the same as your old password.');
             }
-            user.password = await hash(password)
+
+            user.password = await hash(password);
         }
 
         try {
-            Object.entries(data).map((entry) => {
-                user[entry[0] = entry[1]]
-            })
-            return this.usersRepository.save(user)
-        } catch (error) {
-            Logging.error(error)
-            if (error?.code === PostgresErrorCode.UniqueViolation) {
-                throw new BadRequestException('User with that email already exists.')
+            for (const [key, value] of Object.entries(data)) {
+                user[key] = value;
             }
-            throw new InternalServerErrorException('Something went wrong while updating the user')
+            return await this.usersRepository.save(user);
+        } catch (error) {
+            Logging.error(error);
+            if (error?.code === PostgresErrorCode.UniqueViolation) {
+                throw new BadRequestException('User with that email already exists.');
+            }
+            throw new InternalServerErrorException('Something went wrong while updating the user');
         }
     }
     async updateUserImageId(id: string, avatar: string): Promise<User> {
