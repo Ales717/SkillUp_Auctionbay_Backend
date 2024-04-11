@@ -8,6 +8,7 @@ import Logging from 'library/Logging';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { compareHash, hash } from 'utils/bcrypt';
 import { PostgresErrorCode } from 'helpers/postgresErrorCode.enum';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
 export class UsersService extends AbstractService {
@@ -65,5 +66,29 @@ export class UsersService extends AbstractService {
     async updateUserImageId(id: string, avatar: string): Promise<User> {
         const user = await this.findById(id)
         return this.update(user.id, { avatar })
+    }
+
+    async updatePassword(id: string, updatePasswordDto: UpdatePasswordDto): Promise<User> {
+        const { current_password, new_password, confirm_password } = updatePasswordDto
+        const user = await this.findById(id)
+
+        const passwordMatch = await compareHash(current_password, user.password)
+        if (!passwordMatch) {
+            throw new BadRequestException('Current password is incorrect.')
+        }
+
+        if (new_password && confirm_password) {
+            if (new_password !== confirm_password) {
+                throw new BadRequestException('Passwords do not match.');
+            }
+
+            if (await compareHash(new_password, user.password)) {
+                throw new BadRequestException('New password cannot be the same as your old password.');
+            }
+
+            user.password = await hash(new_password);
+        }
+
+        return this.usersRepository.save(user)
     }
 }

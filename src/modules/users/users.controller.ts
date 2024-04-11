@@ -8,6 +8,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { isFileExtensionSafe, removeFile, saveImageToStorage } from 'helpers/imageStorage';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { join } from 'path';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -65,5 +66,13 @@ export class UsersController {
     async remove(@Param('id') id: string): Promise<User> {
         return this.userService.remove(id)
     }
+
+    @Patch('password/:id')
+    @HttpCode(HttpStatus.OK)
+    async updatePassword(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto): Promise<User> {
+        return this.userService.updatePassword(id, updatePasswordDto)
+    }
+
+
 }
 

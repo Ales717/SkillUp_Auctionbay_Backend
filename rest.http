@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
   	"email": "john@gmail.com",
-  	"password": "John123!"
+  	"password": "Geslo123!"
 }
 
 ### GET /auth
@@ -31,11 +31,11 @@ POST http://localhost:8080/auth/signout HTTP/1.1
 GET http://localhost:8080/users HTTP/1.1
 
 ### PATCH /users/:id
-PATCH http://localhost:8080/d0def017-6c5d-4d00-8abd-2875956c520c HTTP/1.1
+PATCH http://localhost:8080/users/d0def017-6c5d-4d00-8abd-2875956c520c HTTP/1.1
 Content-Type: application/json
 
 {
-  	"last_name": "test"
+  	"first_name": "Mike"
 }
 ### GET /users
 GET http://localhost:8080/users HTTP/1.1
@@ -45,6 +45,16 @@ DELETE http://localhost:8080/users/b2d2dbf6-a4fe-4c52-983c-3c849bc33202 HTTP/1.1
 
 ### GET /users/page
 GET http://localhost:8080/users?page=1 HTTP/1.1
+
+### Patch /users/password/:id
+PATCH http://localhost:8080/users/password/d0def017-6c5d-4d00-8abd-2875956c520c HTTP/1.1
+Content-Type: application/json
+
+{
+    "current_password": "Geslo123!das",
+    "new_password": "John123!",
+    "confirm_password": "John123!"
+}
 
 
 
