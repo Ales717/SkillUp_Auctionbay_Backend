@@ -19,6 +19,12 @@ export class ItemsController {
         return this.itemsService.paginate(page)
     }
 
+    @Get('all')
+    @HttpCode(HttpStatus.OK)
+    async findEvery(): Promise<Item[]> {
+        return this.itemsService.findAll([])
+    }
+
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     async findOne(@Param('id') id: string): Promise<Item> {
@@ -43,7 +49,6 @@ export class ItemsController {
     @HttpCode(HttpStatus.CREATED)
     async upload(@UploadedFile() file: Express.Multer.File, @Param('id') itemId: string): Promise<Item> {
         const filename = file?.filename
-
         if (!filename) throw new BadRequestException('File must be a png, jpg/jpeg')
 
         const imagesFolderPath = join(process.cwd(), 'files')
