@@ -7,6 +7,7 @@ import { isFileExtensionSafe, removeFile, saveImageToStorage } from 'helpers/ima
 import { FileInterceptor } from '@nestjs/platform-express'
 import { join } from 'path';
 import { ApiTags } from '@nestjs/swagger';
+import { MoreThan } from 'typeorm';
 
 @ApiTags('items')
 @Controller('items')
@@ -16,13 +17,19 @@ export class ItemsController {
     @Get()
     @HttpCode(HttpStatus.OK)
     async findAll(@Query('page') page: number): Promise<PeginatedResult> {
-        return this.itemsService.paginate(page)
+        return this.itemsService.paginate(page, ['user'])
     }
 
     @Get('all')
     @HttpCode(HttpStatus.OK)
     async findEvery(): Promise<Item[]> {
-        return this.itemsService.findAll([])
+        const currentDate = new Date()
+        const condition = { end_date: MoreThan(currentDate) }
+        const items = await this.itemsService.findAllBy(condition, ['user'])
+
+        items.sort((a, b) => a.end_date - b.end_date)
+
+        return items
     }
 
     @Get(':id')
@@ -35,7 +42,21 @@ export class ItemsController {
     @HttpCode(HttpStatus.OK)
     async findByUserId(@Param('user_id') user_id: string): Promise<Item[]> {
         const condition = { user: { id: user_id } }
-        return this.itemsService.findBy(condition);
+        const items = await this.itemsService.findAllBy(condition, ['user'])
+
+        const comparator = (a: Item, b: Item) => {
+            if (a.end_date === null || new Date(a.end_date) < new Date()) {
+                return 1
+            } else if (b.end_date === null || new Date(b.end_date) < new Date()) {
+                return -1
+            } else {
+                return new Date(a.end_date).getTime() - new Date(b.end_date).getTime()
+            }
+        }
+
+        items.sort(comparator)
+
+        return items
     }
 
     @Post()

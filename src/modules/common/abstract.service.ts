@@ -7,7 +7,7 @@ import { Repository } from 'typeorm'
 export abstract class AbstractService {
   constructor(protected readonly repository: Repository<any>) { }
 
-  async findAll(relations: []): Promise<any[]> {
+  async findAll(relations = []): Promise<any[]> {
     try {
       return this.repository.find({ relations })
     } catch (error) {
@@ -43,6 +43,19 @@ export abstract class AbstractService {
       throw new InternalServerErrorException(`Something went wrong while searching for an element with an id :${id}}`)
     }
   }
+
+  async findAllBy(condition, relations = []): Promise<any[]> {
+    try {
+      return this.repository.find({
+        where: condition,
+        relations,
+      })
+    } catch (error) {
+      Logging.error(error);
+      throw new InternalServerErrorException(`Something went wrong while searching for elements with condition: ${condition}.`)
+    }
+  }
+
 
   async remove(id: string): Promise<any> {
     const element = await this.findById(id)

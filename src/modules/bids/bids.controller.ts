@@ -4,6 +4,7 @@ import { PeginatedResult } from 'interfaces/peginated-result.interface';
 import { Bid } from 'entities/bid.entity';
 import { CreateUpdateBidDto } from './dto/create-update-bid.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { max } from 'class-validator';
 
 @ApiTags('bids')
 @Controller('bids')
@@ -26,14 +27,71 @@ export class BidsController {
     @HttpCode(HttpStatus.OK)
     async findByUserId(@Param('user_id') user_id: string): Promise<Bid[]> {
         const condition = { user: { id: user_id } }
-        return this.bidsService.findBy(condition);
+        const bids = await this.bidsService.findAllBy(condition, ['user', 'item'])
+
+        const uniqueItemIds: string[] = []
+        const uniqueBids: Bid[] = []
+
+        bids.forEach((bid) => {
+            const isExpired = new Date(bid.item.end_date) < new Date()
+            if (!isExpired) {
+                const isUnique = !uniqueItemIds.includes(bid.item.id)
+
+                if (isUnique) {
+                    uniqueItemIds.push(bid.item.id)
+                    uniqueBids.push(bid)
+                }
+            }
+
+        })
+
+        return uniqueBids
     }
+
+
+    @Get('user/won/:user_id')
+    @HttpCode(HttpStatus.OK)
+    async findWonByUserId(@Param('user_id') user_id: string): Promise<Bid[]> {
+        const condition = { user: { id: user_id } }
+        const bids = await this.bidsService.findAllBy(condition, ['user', 'item'])
+
+        const uniqueItemIds: string[] = []
+        const uniqueBids: Bid[] = []
+
+        bids.forEach((bid) => {
+            const isExpired = new Date(bid.item.end_date) < new Date()
+            if (isExpired) {
+                const isUnique = !uniqueItemIds.includes(bid.item.id)
+
+                if (isUnique) {
+                    uniqueItemIds.push(bid.item.id)
+                    uniqueBids.push(bid)
+                }
+
+            }
+
+        })
+
+        return uniqueBids
+    }
+
 
     @Get('item/:item_id')
     @HttpCode(HttpStatus.OK)
     async findByItemId(@Param('item_id') item_id: string): Promise<Bid[]> {
         const condition = { item: { id: item_id } }
-        return this.bidsService.findBy(condition);
+        return this.bidsService.findAllBy(condition, ['user', 'item'])
+    }
+
+    @Get('item/top/:item_id')
+    @HttpCode(HttpStatus.OK)
+    async findBiggiestForItemId(@Param('item_id') item_id: string): Promise<Bid> {
+        const condition = { item: { id: item_id } }
+        const bids = await this.bidsService.findAllBy(condition, ['user', 'item'])
+
+        bids.sort((a, b) => b.amount - a.amount)
+
+        return bids[0]
     }
 
     @Post()
