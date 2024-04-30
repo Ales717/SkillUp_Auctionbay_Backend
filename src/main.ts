@@ -31,6 +31,6 @@ async function bootstrap() {
   const PORT = process.env.PORT || 8080
   await app.listen(PORT)
 
-  Logging.log(`App is listening on: ${await app.getUrl()}`)
+  //Logging.log(`App is listening on: ${await app.getUrl()}`)
 }
 bootstrap()
