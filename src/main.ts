@@ -11,7 +11,7 @@ async function bootstrap() {
     bufferLogs: true,
   })
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://skill-up-auctionbay-frontend.vercel.app'],
     credentials: true,
   })
   app.useGlobalPipes(new ValidationPipe())
