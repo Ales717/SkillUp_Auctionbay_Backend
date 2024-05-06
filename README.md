@@ -60,7 +60,7 @@ To set up the AuctionBay backend locally, follow these steps:
    yarn start:dev
    ```
 
-The backend server should now be running locally on `http://localhost:3000`.
+The backend server should now be running locally on `http://localhost:8080`.
 
 ## Usage
 
